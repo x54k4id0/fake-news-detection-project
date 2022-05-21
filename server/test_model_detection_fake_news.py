@@ -141,3 +141,21 @@ test_klma = my_file.readline()
 answer = classify(test_klma)
 
 """calcule accuracy"""
+
+import pandas as pd
+
+df = pd.read_excel('clean_test_data.xlsx')
+vals_list = df['tweet'].tolist()
+class_list = df['label'].tolist()
+
+total = len(vals_list)
+class_list
+
+True_val = 0
+for tweet, valu in zip(vals_list,class_list):
+  res = classify(tweet)
+  try:
+    if(res[0][0]==valu):
+      True_val = True_val + 1
+  except:
+    pass
