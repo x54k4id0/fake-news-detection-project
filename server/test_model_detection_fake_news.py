@@ -134,3 +134,10 @@ def classify(sentence, show_details=False):
     return_results =[[classes[r[0]],r[1]] for r in results]
     
     return return_results
+
+my_file = open("test_news_value.txt", "r")
+
+test_klma = my_file.readline()
+answer = classify(test_klma)
+
+"""calcule accuracy"""
