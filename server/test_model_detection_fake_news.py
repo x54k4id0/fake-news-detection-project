@@ -7,6 +7,8 @@ import nltk
 nltk.download('stopwords')
 nltk.download('punkt')
 
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
 from nltk.stem.lancaster import LancasterStemmer
 stemmer = LancasterStemmer()
 
@@ -57,3 +59,29 @@ def remove_digits(tweet):
 
 def to_lower(tweet):
   return tweet.lower()
+
+def remove_stopwords(tweet):
+  stopwords_list = stopwords.words('english')
+  # Some words which might indicate a certain sentiment are kept via a whitelist
+  whitelist = ["n't", "not", "no"]
+  words = tweet.split()
+  clean_words = [word for word in words if (word not in stopwords_list or word in whitelist) and len(word) > 1]
+  return " ".join(clean_words)
+
+def stemming(tweet):
+  porter = PorterStemmer()
+  words = tweet.split()
+  stemmed_words = [porter.stem(word) for word in words]
+  return " ".join(stemmed_words)
+
+def cleaning(tweet):
+  tweet = remove_mentions(tweet)
+  tweet = remove_urls(tweet)
+  tweet = remove_emoji(tweet)
+  tweet = inders_oneword(tweet)
+  tweet = remove_punctuation(tweet)
+  tweet = remove_digits(tweet)
+  tweet = to_lower(tweet)
+  tweet = remove_stopwords(tweet)
+  tweet = stemming(tweet)
+  return tweet;
