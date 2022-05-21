@@ -126,3 +126,11 @@ def think(sentence, show_details=False):
     # output layer
     l2 = sigmoid(np.dot(l1, synapse_1))
     return l2
+
+def classify(sentence, show_details=False):
+    results = think(sentence, show_details)
+    results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD ]
+    results.sort(key=lambda x: x[1], reverse=True)
+    return_results =[[classes[r[0]],r[1]] for r in results]
+    
+    return return_results
